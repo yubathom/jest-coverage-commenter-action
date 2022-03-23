@@ -20,7 +20,7 @@ const runJest = (
         // const execSync = execSyncParam ?? execSyncImport;
 
         const codeCoverage = execSync(testCommand, {
-            maxBuffer: 1024 * 1024 * 500
+            maxBuffer: 1024 * 1024 * 1024
         }).toString();
         try {
             if (reporter === 'text-summary') {

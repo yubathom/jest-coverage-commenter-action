@@ -1496,7 +1496,7 @@ const runJest = (testCommand, reporter) => {
     try {
         // const execSync = execSyncParam ?? execSyncImport;
         const codeCoverage = child_process_1.execSync(testCommand, {
-            maxBuffer: 1024 * 1024 * 500
+            maxBuffer: 1024 * 1024 * 1024
         }).toString();
         try {
             if (reporter === 'text-summary') {
