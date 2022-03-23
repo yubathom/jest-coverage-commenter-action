@@ -1,5 +1,6 @@
 import { error, warning, debug } from '@actions/core';
-import { execSync as execSyncImport } from 'child_process';
+// import { execSync as execSyncImport } from 'child_process';
+import { execSync } from 'child_process';
 
 export interface FormattedCoverage {
     summary?: string;
@@ -13,12 +14,14 @@ export const JEST_ERROR_MESSAGE = 'There was an error while running Jest.';
 const runJest = (
     testCommand: string,
     reporter: string,
-    execSyncParam?: (command: string) => Buffer
+    // execSyncParam?: (command: string) => Buffer
 ): FormattedCoverage => {
     try {
-        const execSync = execSyncParam ?? execSyncImport;
+        // const execSync = execSyncParam ?? execSyncImport;
 
-        const codeCoverage = execSync(testCommand).toString();
+        const codeCoverage = execSync(testCommand, {
+            maxBuffer: 1024 * 1024 * 10
+        }).toString();
         try {
             if (reporter === 'text-summary') {
                 return processTextSummaryReporter(codeCoverage);
