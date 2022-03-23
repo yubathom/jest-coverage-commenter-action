@@ -1487,14 +1487,17 @@ exports.paginatingEndpoints = paginatingEndpoints;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JEST_ERROR_MESSAGE = void 0;
 const core_1 = __webpack_require__(470);
+// import { execSync as execSyncImport } from 'child_process';
 const child_process_1 = __webpack_require__(129);
 const A_BUNCH_OF_DASHES = '----------';
 const A_BUNCH_OF_EQUALS = '==========';
 exports.JEST_ERROR_MESSAGE = 'There was an error while running Jest.';
-const runJest = (testCommand, reporter, execSyncParam) => {
+const runJest = (testCommand, reporter) => {
     try {
-        const execSync = execSyncParam !== null && execSyncParam !== void 0 ? execSyncParam : child_process_1.execSync;
-        const codeCoverage = execSync(testCommand).toString();
+        // const execSync = execSyncParam ?? execSyncImport;
+        const codeCoverage = child_process_1.execSync(testCommand, {
+            maxBuffer: 1024 * 1024 * 500
+        }).toString();
         try {
             if (reporter === 'text-summary') {
                 return processTextSummaryReporter(codeCoverage);
